@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Country Search</title>
+  <link rel='stylesheet' type='text/css' href="country-search.css">
+  <link rel="icon" href="globe.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">      
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="header-container">
+      <span class="title">Country Search Engine</span>
+    </div>
+
+    <div class="search-container">
+      <div class="text-search-container">
+        <input type="text" onkeypress="return onlyAlphabets(event,this);" placeholder="Search for the Country" class="search-text" id="searchValue"></input>
+        <button class="search-button" id="SearchBtn" disabled><i class="fa fa-search search-icon"></i></button>
+      </div>
+      <div class="countries-per-page-container" id="countriesPerPageContainer">
+        Show <input type="text" value="12" placeholder="Countries Per Page" class="countries-per-page" id="countriesPerPage" onkeypress="return onlyNumber(event)"> Countries per Page.</input>
+      </div>
+      <div class="result-summary" id="resultSummary"></div>
+    </div>
+    <div class="table-container" id="tableContainer">
+        <table id="countryList" class="country-list">
+          <tr>
+            <th>
+              Name
+              <span class="icon-container">
+                <a class="sort" href="#" data-toggle="tooltip" data-sort-asc-order="true" data-sort-prop="name" data-placement="bottom" title="Name Low to High!">
+                  <i class="fa fa-sort-alpha-asc asc-icon"></i>
+                </a> 
+                <a class="sort" href="#" data-toggle="tooltip"  data-sort-asc-order="false" data-sort-prop="name" data-placement="bottom" title="Name High to Low!">
+                  <i class="fa fa-sort-alpha-desc desc-icon"></i>
+                </a>
+              </span>
+            </th>
+            <th>Capital
+              <span class="icon-container">
+                <a class="sort" href="#" data-toggle="tooltip" data-sort-asc-order="true" data-sort-prop="capital" data-placement="bottom" title="Capital Low to High!">
+                  <i class="fa fa-sort-alpha-asc asc-icon"></i>
+                </a> 
+                <a class="sort" href="#" data-toggle="tooltip"  data-sort-asc-order="false" data-sort-prop="capital" data-placement="bottom" title="Capital High to Low!">
+                  <i class="fa fa-sort-alpha-desc desc-icon"></i>
+                </a>
+              </span>
+            </th>
+            <th>Currency</th>
+            <th>Region</th>
+            <th>Population 
+              <span class="icon-container">
+                <a class="sort" href="#" data-toggle="tooltip" data-sort-asc-order="true" data-sort-prop="population" data-placement="bottom" title="Population Low to High!">
+                  <i class="fa fa-sort-numeric-asc asc-icon"></i>
+                </a> 
+                <a class="sort" href="#" data-toggle="tooltip" data-sort-asc-order="false" data-sort-prop="population" data-placement="bottom" title="Population High to Low!">
+                  <i class="fa fa-sort-numeric-desc desc-icon"></i>
+                </a>
+              </span>
+            </th>
+            <th>Area (km<sup>2</sup> )
+              <span class="icon-container">
+                <a class="sort" href="#" data-toggle="tooltip" data-sort-asc-order="true" data-sort-prop="area" data-placement="bottom" title="Area Low to High!">
+                  <i class="fa fa-sort-numeric-asc asc-icon"></i>
+                </a> 
+                <a class="sort" href="#" data-toggle="tooltip" data-sort-asc-order="false" data-sort-prop="area" data-placement="bottom" title="Area High to Low!">
+                  <i class="fa fa-sort-numeric-desc desc-icon"></i>
+                </a>
+              </span>
+            </th>
+            <th>alpha3code</th>
+            <th>Calling Code</th>
+          </tr>
+        </table>
+      </div>
+      <div class="page-details" id="pageDetails">
+      </div>
+      <div class="button-container" id="buttonContainer">
+        <button class="back-button navigation-buttons" id="previousButton"><i class="fa fa-arrow-left navigation-icon"></i>Previous</button>
+        <button class="next-button navigation-buttons" id="nextButton">Next<i class="fa fa-arrow-right navigation-icon"></i></button>
+      </div>
+
+    <div class="more-info-modal" id="moreInfoModal">
+        <div class="more-info-center">
+          <table id="moreInfoTable" class="more-info-table country-list">
+            <tr><th colspan="2" class="info-top-heading"></td></tr>
+            <tr data-keyname="capital"><td class="info-heading">Capital</td><td></td></tr>
+            <tr data-keyname="currencies"><td class="info-heading">Currency</td><td></td></tr>
+            <tr data-keyname="region"><td class="info-heading">Region</td><td></td></tr>
+            <tr data-keyname="subregion"><td class="info-heading">Sub-Region</td><td></td></tr>
+            <tr data-keyname="altSpellings"><td class="info-heading">Different Names</td><td></td></tr>
+            <tr data-keyname="nativeName"><td class="info-heading">Native Names</td><td></td></tr>
+            <tr data-keyname="population"><td class="info-heading">Population</td><td></td></tr>
+            <tr data-keyname="demonym"><td class="info-heading">Demonym</td><td></td></tr>
+            <tr data-keyname="area"><td class="info-heading">Area (km<sup>2</sup>)</td><td></td></tr>
+            <tr data-keyname="latlng"><td class="info-heading">Latitude</td><td></td></tr>
+            <tr data-keyname="latlng"><td class="info-heading">Longitude</td><td></td></tr>
+            <tr data-keyname="gini"><td class="info-heading">GINI index (World Bank estimate)</td><td></td></tr>
+            <tr data-keyname="borders"><td class="info-heading">Border</td><td></td></tr>
+            <tr data-keyname="timezones"><td class="info-heading">Time Zone(s)</td><td></td></tr>
+            <tr data-keyname="callingCodes"><td class="info-heading">Calling Code</td><td></td></tr>
+            <tr data-keyname="alpha2Code"><td class="info-heading">alpha2Code</td><td></td></tr>
+            <tr data-keyname="alpha3Code"><td class="info-heading">alpha3Code</td><td></td></tr>
+            <tr data-keyname="topLevelDomain"><td class="info-heading">Country Code Top Level domain</td><td></td></tr>
+            <tr data-keyname="numericCode"><td class="info-heading">ISO Numeric Country Codes</td><td></td></tr>
+            <tr data-keyname="languages"><td class="info-heading">Languages</td><td></td></tr>
+          </table>
+        </div>
+    </div>
+    <div class="modal">
+        <div class="center">
+          <img alt="" src="country-search.gif" />
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="country-search.js"></script>
+  </body>
+
+</html>
